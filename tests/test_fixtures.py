@@ -1,30 +1,36 @@
-import pytest
-from selene.support.shared.jquery_style import s
-from selene import browser, have
-from selene.support.shared import browser
-
 """
 Сделайте разные фикстуры для каждого теста, которые выставят размеры окна браузера
 """
-@pytest.mark.parametrize("permision_w", [
-    (1920, 1080),
-    (1600, 900),
-    (1600, 1024),
-    (1280, 720),
-])
-def test_github_desktop(permision_w):
-    browser.driver.set_window_size(permision_w[0], permision_w[1])
-    browser.open('https://github.com/')
+import pytest
+from selene import browser
+from selene.support.shared.jquery_style import s
+
+param_windows_desktop = [(1980, 1080),
+                         (1600, 1200),
+                         (1280, 960)]
+
+param_windows_mobile = [(428, 926),
+                        (372, 812),
+                        (414, 896)]
+
+
+@pytest.fixture(params=param_windows_desktop)
+def param_windows_desktop(request):
+    return request.param
+
+
+def test_github_desktop(param_windows_desktop):
+    browser.open('')
+    browser.driver.set_window_size(param_windows_desktop[0], param_windows_desktop[1])
     s('.HeaderMenu-link--sign-in').click()
 
 
-@pytest.mark.parametrize("permision_m", [
-    (428, 926),
-    (372, 812),
-    (414, 896),
-    (414, 736)
-])
-def test_github_mobile(permision_m):
-    browser.driver.set_window_size(permision_m[0],permision_m[1])
-    browser.open('https://github.com/')
+@pytest.fixture(params=param_windows_mobile)
+def param_windows_mobile(request):
+    return request.param
+
+
+def test_github_mobile(param_windows_mobile):
+    browser.open('')
+    browser.driver.set_window_size(param_windows_mobile[0], param_windows_mobile[1])
     s('.flex-column [aria-label="Toggle navigation"]').click()
