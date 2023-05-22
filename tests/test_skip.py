@@ -6,12 +6,12 @@ import pytest
 from selene import browser
 from selene.support.shared.jquery_style import s
 
-size_windows = [(1980, 1080, "desktop"),
-                (1600, 1200, "desktop"),
-                (1280, 960, "desktop"),
-                (428, 926, "mobile"),
-                (372, 812, "mobile"),
-                (414, 896, "mobile")]
+size_windows = [(1980, 1080,),
+                (1600, 1200,),
+                (1280, 960,),
+                (428, 926,),
+                (372, 812,),
+                (414, 896,)]
 
 #фикстура для разрещения экранов
 
@@ -33,7 +33,11 @@ def test_github_desktop(size_windows_gadget):
     browser.open('')
     browser.driver.set_window_size(size_windows_gadget[0],
                                    size_windows_gadget[1])
-    s('.HeaderMenu-link--sign-in').click()
+    if size_windows_gadget[0] < 768:
+        pytest.skip()
+    else:
+        s('.HeaderMenu-link--sign-in').click()
+
 
 # тест для мобилок
 
@@ -41,4 +45,7 @@ def test_github_mobile(size_windows_gadget):
     browser.open('')
     browser.driver.set_window_size(size_windows_gadget[0],
                                     size_windows_gadget[1])
-    s('.flex-column [aria-label="Toggle navigation"]').click()
+    if size_windows_gadget[0] > 768:
+        pytest.skip()
+    else:
+        s('.flex-column [aria-label="Toggle navigation"]').click()
