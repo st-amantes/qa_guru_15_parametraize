@@ -34,7 +34,7 @@ def test_github_desktop(size_windows_gadget):
     browser.driver.set_window_size(size_windows_gadget[0],
                                    size_windows_gadget[1])
     if size_windows_gadget[0] < 768:
-        pytest.skip()
+        pytest.skip(reason="Разрешение не подходит для вашего устроства")
     else:
         s('.HeaderMenu-link--sign-in').click()
 
@@ -46,6 +46,6 @@ def test_github_mobile(size_windows_gadget):
     browser.driver.set_window_size(size_windows_gadget[0],
                                     size_windows_gadget[1])
     if size_windows_gadget[0] > 768:
-        pytest.skip()
+        pytest.skip(reason="Разрешение не подходит для мобильной версии")
     else:
         s('.flex-column [aria-label="Toggle navigation"]').click()
