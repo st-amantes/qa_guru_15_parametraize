@@ -4,11 +4,11 @@
 import pytest
 from selene import browser
 from selene.support.shared.jquery_style import s
-
+#разрешение для компа
 size_windows_desktop = [(1980, 1080),
                         (1600, 1200),
                         (1280, 960)]
-
+#разрешение для мобилки
 size_windows_mobile = [(428, 926),
                        (372, 812),
                        (414, 896)]
