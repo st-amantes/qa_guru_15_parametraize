@@ -24,7 +24,6 @@ def test_github_desktop(size_windows_desktop):
                                    size_windows_desktop[1])
     s('.HeaderMenu-link--sign-in').click()
 
-
 @pytest.fixture(params=size_windows_mobile)
 def size_windows_mobile(request):
     return request.param
